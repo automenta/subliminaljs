@@ -2,20 +2,20 @@
 var defaultSubliminalParameters = {
 	framePeriod: 30 /* milliseconds between each frame */,
 	font: '190px Arial',
-	textcolor: '#eee',
-	backgroundcolor: 'white',
+	textcolor: "rgba(0.9,0.9,0.9,0.9)",
 	rightMargin: 200,
 	topMargin: 100,
 	displayProbability: 0.58,
 	moveProbability: 0.08,
-	messageProbability: 0.08
+	messageProbability: 0.08,
+	zindex: -10000,
 };
 
 
 function addSubliminal(messages, p) {
 	var root = document.body;
 	var canvas = document.createElement('canvas');
-	canvas.setAttribute('style', 'position: fixed; z-index: -10000');
+	canvas.setAttribute('style', 'position: fixed; pointer-events: none; z-index: ' + p.zindex);
 	root.insertBefore(canvas, root.firstChild);
 
 	var message = '';
@@ -32,7 +32,6 @@ function addSubliminal(messages, p) {
 
 		// Clear the screen
 		ctx.font = p.font;
-		ctx.fillStyle = p.backgroundcolor;
 		ctx.clearRect(0,0,width,height);
 
 		if ((Math.random() < p.messageProbability) || (message == '')) {
